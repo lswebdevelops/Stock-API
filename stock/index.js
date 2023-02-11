@@ -1,10 +1,10 @@
-var api = "demo"; // get your own api (https://www.alphavantage.co/support/#api-key)
-var dps = [];
-var company = null;
-var symbol = null;
-var chart = null;
-var columns = ["Date", "Open", "High", "Low", "Close", "Adjusted Close", "Volume"];
-var data1 = []
+let api = "PBOACQHO3SAJSYYC"; // get your own api (https://www.alphavantage.co/support/#api-key)
+let dps = [];
+let company = null;
+let symbol = null;
+let chart = null;
+let columns = ["Date", "Open", "High", "Low", "Close", "Adjusted Close", "Volume"];
+let data1 = []
 
 function download(){
   window.location = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+symbol+"&apikey="+api+"&datatype=csv";
@@ -14,13 +14,13 @@ function getting_data(){
   if(company !== null){
     $.getJSON("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+symbol+"&outputsize=full&apikey="+api)
     .done(function(data){
-      var date = data["Time Series (Daily)"]
+      let date = data["Time Series (Daily)"]
       let a = 20;
       let b = 7;
-      for(var d in date){
-        var r = d.split("-");
+      for(let d in date){
+        let r = d.split("-");
         if(a-- > 0){
-          var value = date[d];
+          let value = date[d];
           dps.unshift({x: new Date(parseInt(r[0]), parseInt(r[1])-1, parseInt(r[2])), y: parseFloat(value["1. open"])});
           if(b-- > 0){
             let c = [d, value["1. open"], value["2. high"], value["3. low"], value["4. close"], value["5. adjusted close"], value["6. volume"]];
@@ -88,17 +88,17 @@ function getData(){
 }
 
 function drawTable(){
-  var table_container = document.getElementById("table_container");
-  var para = document.createElement("p");
+  let table_container = document.getElementById("table_container");
+  let para = document.createElement("p");
   para.id = "para";
-  var cell = document.createTextNode("RECENT END OF DAY PRICES");
+  let cell = document.createTextNode("RECENT END OF DAY PRICES");
   para.appendChild(cell);
   table_container.appendChild(para);
-  var table = document.createElement("table");
+  let table = document.createElement("table");
   table.className = "table";
-  var row = document.createElement("tr");
+  let row = document.createElement("tr");
   for(let i=0;i<columns.length;i++){
-    var col = document.createElement("th");
+    let col = document.createElement("th");
     col.scope = "col";
     cell = document.createTextNode(columns[i]);
     col.appendChild(cell);
